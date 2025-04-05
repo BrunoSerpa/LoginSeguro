@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS UserTable (
+    id SERIAL PRIMARY KEY,
+    email_user VARCHAR(50) UNIQUE NOT NULL,
+    password_user VARCHAR(50) NOT NULL,
+    name_user VARCHAR(50) NOT NULL
+);
