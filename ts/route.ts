@@ -84,7 +84,7 @@ router.post('/users', async (req, res) => {
  *                 type: string
  *     responses:
  *       200:
- *         description: Login realizado com sucesso.
+ *         description: Login realizado com sucesso ou Email ou senha incorretos.
  *       500:
  *         description: Erro ao realizar login.
  */
@@ -92,9 +92,13 @@ router.post('/login', async (req, res) => {
     const { email_user, password_user } = req.body;
     try {
         const result = await login(query, email_user, password_user);
-        returnJson(res, undefined, result, "Login realizado com sucesso");
+        if (result.length === 0) {
+            returnJson(res, "Email ou senha incorretos");
+        } else {
+            returnJson(res, undefined, result, "Login realizado com sucesso");
+        }
     } catch (error) {
-        returnJson(res, "Erro ao realizar login");
+        returnJson(res, "Erro ao realizar login", error);
     }
 });
 
